@@ -25,7 +25,7 @@ public class Computer {
 	public Computer() {
 		// TODO Auto-generated constructor stub
 		super();
-		this.retailPrice = "$999.99";
+		this.retailPrice = "$0.00";
 	}
 	
 	public Computer(String brand) {

@@ -4,16 +4,67 @@
 <meta charset="UTF-8">
 <title>Insert New Computer</title>
 </head>
+<script type = "text/javascript">
+      function emptyFieldsValidation() {
+      
+         if(document.inputForm.brand.value == "") {
+            alert("Please enter in the brand name.");
+            document.inputForm.brand.focus();
+            return false;
+         }
+         if(document.inputForm.model.value == "") {
+            alert("Please enter in the computer model.");
+            document.inputForm.model.focus();
+            return false;
+         }
+         if(document.inputForm.retailPrice.value == "$0.00" || document.inputForm.retailPrice.value == "") {
+             alert("Please enter in the retail price.");
+             document.inputForm.retailPrice.focus();
+             return false;
+          }
+         if(document.inputForm.detailsGpu.value == "") {
+             alert("Please enter in the GPU.");
+             document.inputForm.detailsGpu.focus();
+             return false;
+         }
+          if(document.inputForm.detailsCpu.value == "") {
+              alert("Please enter in the CPU.");
+              document.inputForm.detailsCpu.focus();
+              return false;
+          }
+          if(document.inputForm.detailsStorage.value == "") {
+              alert("Please enter in the storage.");
+              document.inputForm.detailsStorage.focus();
+              return false;
+         }
+         return true;
+      }
+
+      function retailPriceValidation(inputText, minLength, maxLength) {
+    	  var field = inputText.value;
+    	  var minLen = minLength;
+    	  var maxLen = maxLength;
+    	  
+    	  if(field.length < minLen || field.length > maxLen) {
+    		  alert("Please input the Retail Price to be between " + minLen + " and " + maxLen + " characters");
+    		  return false;
+    	  }
+    	  else {
+    		  alert("Retail Price accepted!");
+    		  return true;
+    	  }
+      }
+</script>
 <body>
-	<form th:object="${newComputer}" th:action="@{/update/{id}(id=${newComputer.id})}" method='POST'>
-		Brand: <input name="brand" size="50" th:field="*{brand}"> <br />
-		Model: <input name="model" size="50" th:field="*{model}"><br />
-		Retail Price: <input name="retailPrice" size="20" th:field="*{retailPrice}"><br />
-		GPU: <input name="details.gpu" size="20" th:field="*{details.gpu}"><br />
-		CPU: <input name="details.cpu" size="20" th:field="*{details.cpu}"><br />
-		Storage:<input name="details.storage" size="20" th:field="*{details.storage}"><br />
-		<input name="submit"type="submit" value="submit"/>
+	<form name="inputForm" th:object="${newComputer}" th:action="@{/update/{id}(id=${newComputer.id})}" method='POST' onsubmit="return(emptyFieldsValidation());">
+		Brand: <input name="brand" type="text" size="50" th:field="*{brand}"> <br />
+		Model: <input name="model" type="text" size="50" th:field="*{model}"><br />
+		Retail Price: <input name="retailPrice" type="text" size="20" th:field="*{retailPrice}" onmouseout="return(retailPriceValidation(document.inputForm.retailPrice, 7, 9));"><br />
+		GPU: <input name="detailsGpu" type="text" size="20" th:field="*{details.gpu}"><br />
+		CPU: <input name="detailsCpu" type="text" size="20" th:field="*{details.cpu}"><br />
+		Storage:<input name="detailsStorage" type="text" size="20" th:field="*{details.storage}"><br />
+		<input name="submit" type="submit" value="submit"/>
 	</form>
-<a href="viewAll">View all Contacts</a>
+<a href="viewAll">View all Computers</a>
 </body>
 </html>
